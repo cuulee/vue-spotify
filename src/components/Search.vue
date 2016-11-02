@@ -1,8 +1,7 @@
 <template lang='pug'>
   div.search-box
-    search-button(v-bind:options='options' v-bind:search='search')
-    div.over-flowing
-      input(type='text' v-model='name' tabindex=1)
+    input(type='text' v-model='name' tabindex=1)
+    search-button.right-spacing(v-bind:options='options' v-bind:search='search')
 </template>
 
 <script>
@@ -25,21 +24,35 @@ export default {
   },
   methods: {
     search () {
-      this.$store.dispatch('searchByName', {name: this.name})
+      this.$store.dispatch('searchByName', {query: this.name})
     }
   }
 }
 </script>
 
-<style scoped>
+<style>
 input[type=text] {
+  background: #303030;
   border-radius: 4px;
-  line-height: 1.75em;
-  padding-left: 0.2em;
-  width: 100%;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #FFFFFF;
+  font: 20px monospace;
+  height: 44px;
+  opacity: 0.7;
+  text-indent: 0.2em;
+  vertical-align: top;
+  width: calc(100% - 5.25em);
+  -webkit-appearance: none;
+  -webkit-box-sizing: border-box;
 }
-.over-flowing {
-  overflow: hidden;
-  padding-right: 0.7em;
+.search-box {
+  background: #303030;
+  padding: 0.25em 0 0.25em 0.25em;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+.right-spacing {
+  margin-right: 0.5em;
 }
 </style>

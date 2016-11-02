@@ -8,10 +8,12 @@ import * as mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  results: [],
   activeSearchOption: 'Artist',
   displaySearchOptions: false,
-  isBusy: false
+  isBusy: false,
+  page: 1,
+  query: '',
+  results: []
 }
 
 export default new Vuex.Store({

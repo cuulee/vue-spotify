@@ -72,9 +72,9 @@ export default {
         break;
     }
     return (
-      <div class='search-result'>
+      <li class='search-result'>
         {renderResult(h)}
-      </div>
+      </li>
     )
   }
 }
@@ -87,7 +87,6 @@ img {
   max-width: 64px;
 }
 .search-result {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   padding: 0.5em 0 0.25em 0;
 }
 .result-name {

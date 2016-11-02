@@ -19,7 +19,9 @@ export default {
           ? <div class='loading-overlay'>
               <i class="loading fa fa-spinner fa-pulse fa-4x fa-fw"></i>
             </div>
-          : this.results.map((item) => <SearchResult result={item} />)
+          : <ul class='results-list'>
+              {this.results.map((item) => <SearchResult result={item} />)}
+            </ul>
         }
       </div>
     )
@@ -29,12 +31,21 @@ export default {
 
 <style>
 .search-results {
-  padding: 0.5em 0.5em 0 0;
+  background-color: #3F3F3F;
+  margin-bottom: calc(54px + 0.25em);
+  overflow-y: visible;
+  position: absolute;
+  top: 54px;
+  width: 100%;
+}
+.results-list {
+  list-style-type: none;
+  padding: 0 0 0 0.25em;
+  margin: 0;
 }
 .loading-overlay {
-  background-color: #000;
+  background-color: #303030;
   height: 100%;
-  margin-left: -0.5em;
   opacity: 0.3;
   position: fixed;
   width: 100%;
@@ -45,5 +56,8 @@ export default {
   margin: -0.75em 0 0 -0.75em;
   position: fixed;
   top: 50%;
+}
+.results-list>li:not(:last-child) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
 }
 </style>

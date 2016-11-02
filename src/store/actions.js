@@ -1,12 +1,21 @@
-import {searchByType} from '../api'
+import {fetchTypeByName} from '../api'
 
-export const searchByName = ({commit, state}, {name}) => {
-  commit('requestSearchResults')
-  if(name.length <= 0) {
+// if(res.artists.items.length <= 0) {
+//   commit('decrementPage')
+//   results = state.results
+// } else
+
+export const searchByName = ({commit, state}, {query, searchOption} = {}) => {
+  commit('requestSearchResults', {
+    query: query ? query : state.query,
+    searchOption: searchOption ? searchOption : state.activeSearchOption
+  })
+  if(state.query.length <= 0) {
     commit('receiveSearchResults', {results: []})
+    commit('decrementPage')
     return
   }
-  return searchByType(name, state.activeSearchOption)
+  return fetchTypeByName(state.query, state.activeSearchOption, (state.page - 1) * 10)
     .then(res => {
       let results
       switch (state.activeSearchOption) {
@@ -25,4 +34,18 @@ export const searchByName = ({commit, state}, {name}) => {
       }
       commit('receiveSearchResults', {results})
     })
+}
+
+export const changeActiveSearchOption = ({commit, dispatch, state}, {searchOption}) => {
+  dispatch('searchByName', {searchOption})
+}
+
+export const nextPage = ({commit, dispatch, state}) => {
+  commit('incrementPage')
+  dispatch('searchByName')
+}
+
+export const previousPage = ({commit, dispatch, state}) => {
+  commit('decrementPage')
+  dispatch('searchByName')
 }

@@ -16,9 +16,8 @@ export default {
         displaySearchOptions: !this.displaySearchOptions
       })
     },
-    setActiveSearchOption (option) {
-      this.$store.commit('setActiveSearchOption', {option})
-      this.search()
+    setActiveSearchOption (searchOption) {
+      this.$store.dispatch('changeActiveSearchOption', {searchOption})
     }
   },
   render (h) {
@@ -53,23 +52,6 @@ export default {
 </script>
 
 <style scoped>
-i {
-  color: #FFFFFF;
-}
-button {
-  background-color:  #328C63;
-  border: 1px solid #225f43;
-  border-radius: 4px;
-  font-size: 16px;
-  height: 39.6px;
-  width: 39.6px;
-}
-button:active {
-  opacity: 0.7;
-}
-button:focus {
-  outline: 0;
-}
 ul {
   background-color: #303030;
   border: 1px solid rgba(0, 0, 0, 0.15);
@@ -88,16 +70,12 @@ a {
   color: #FFF;
   cursor: pointer;
   display: block;
-  font-size: smaller;
   opacity: 0.7;
   padding: 0.3em 1em;
   white-space:nowrap;
 }
 .active {
   opacity: 1;
-}
-.btn-group {
-  float: right;
 }
 .btn-group>button:first-child:not(:last-child):not(.dropdown-toggle) {
     border-top-right-radius: 0;

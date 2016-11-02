@@ -1,7 +1,11 @@
-export const requestSearchResults = (state) => {
+export const requestSearchResults = (state, {query, searchOption}) => {
   state.displaySearchOptions = false
   state.isBusy = true
+  state.page = state.query !== query ||
+    state.activeSearchOption !== searchOption ? 1 : state.page
+  state.query = query
   state.results = []
+  state.activeSearchOption = searchOption
 }
 
 export const receiveSearchResults = (state, {results}) => {
@@ -15,4 +19,18 @@ export const setDisplaySearchOptions = (state, {displaySearchOptions}) => {
 
 export const setActiveSearchOption = (state, {option}) => {
   state.activeSearchOption = option
+}
+
+export const incrementPage = (state) => {
+  state.page = ++state.page
+}
+
+export const decrementPage = (state) => {
+  console.log(state.page)
+  state.page = state.page > 1 ? --state.page : state.page
+  console.log(state.page)
+}
+
+export const resetPageCounter = (state) => {
+  state.page = 1;
 }

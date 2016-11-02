@@ -27,13 +27,18 @@ module.exports = {
         }
       }, {
         test: /\.css$/,
-        loader: 'style!css'
+        loader: 'style-loader!css-loader!postcss-loader'
       }, {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url',
       }
     ]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    })
+  ],
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue'
