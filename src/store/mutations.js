@@ -26,9 +26,7 @@ export const incrementPage = (state) => {
 }
 
 export const decrementPage = (state) => {
-  console.log(state.page)
   state.page = state.page > 1 ? --state.page : state.page
-  console.log(state.page)
 }
 
 export const resetPageCounter = (state) => {
