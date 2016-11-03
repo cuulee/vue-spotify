@@ -29,6 +29,7 @@ body {
   font-family: monospace;
   font-size: 20px;
   margin: 0;
+  overflow-x: hidden;
 }
 a {
   color: #42b983;
@@ -54,6 +55,5 @@ button:focus {
 }
 .btn-group {
   float: right;
-  /*padding: 0.25em 0.25em 0.25em 0;*/
 }
 </style>

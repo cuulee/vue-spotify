@@ -32,10 +32,10 @@ export default {
 <style>
 .search-results {
   background-color: #3F3F3F;
-  margin-bottom: calc(54px + 0.25em);
-  overflow-y: visible;
-  position: absolute;
-  top: 54px;
+  height: calc(100vh - 108px);
+  overflow-y: auto;
+  position: fixed;
+  top:54px;
   width: 100%;
 }
 .results-list {

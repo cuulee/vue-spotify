@@ -43,7 +43,7 @@ button[disabled] {
   background: #303030;
   padding: 0.25em 0;
   position: fixed;
-  top: calc(100% - 54px);
+  top: calc(100vh - 54px);
   width: 100%;
   z-index: 1;
 }
