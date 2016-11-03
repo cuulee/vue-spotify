@@ -30,6 +30,7 @@ body {
   font-size: 20px;
   margin: 0;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 a {
   color: #42b983;

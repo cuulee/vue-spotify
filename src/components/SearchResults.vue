@@ -34,9 +34,10 @@ export default {
   background-color: #3F3F3F;
   height: calc(100vh - 108px);
   overflow-y: auto;
-  position: fixed;
-  top:54px;
+  padding-top: 54px;
   width: 100%;
+
+  -webkit-overflow-scrolling: touch;
 }
 .results-list {
   list-style-type: none;
