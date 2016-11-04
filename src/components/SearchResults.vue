@@ -1,5 +1,5 @@
 <script>
-import {mapGetters} from 'vuex'
+import {mapState} from 'vuex'
 
 import SearchResult from './SearchResult.vue'
 
@@ -8,10 +8,10 @@ export default {
   components: [
     SearchResult
   ],
-  computed: mapGetters({
-    results: 'results',
-    isBusy: 'isBusy'
-  }),
+  computed: mapState([
+    'isBusy',
+    'results'
+  ]),
   render (h) {
     return (
       <div class='search-results'>

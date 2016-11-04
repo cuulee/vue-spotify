@@ -1,11 +1,11 @@
 <script>
-import {mapGetters} from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
   name: 'search-result',
-  computed: mapGetters({
-    activeSearchOption: 'activeSearchOption'
-  }),
+  computed: mapState([
+    'activeSearchType'
+  ]),
   props: [
     'result'
   ],
@@ -60,7 +60,7 @@ export default {
   },
   render (h) {
     let renderResult
-    switch (this.activeSearchOption) {
+    switch (this.activeSearchType) {
       case 'Artist':
         renderResult = this.renderArtist
         break;

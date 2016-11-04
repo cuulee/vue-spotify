@@ -1,24 +1,16 @@
-import {fetchTypeByName} from '../api'
+import {fetchByType} from '../api'
+import mutations from './mutationTypes'
 
-// if(res.artists.items.length <= 0) {
-//   commit('decrementPage')
-//   results = state.results
-// } else
-
-export const searchByName = ({commit, state}, {query, searchOption} = {}) => {
-  commit('requestSearchResults', {
-    query: query ? query : state.query,
-    searchOption: searchOption ? searchOption : state.activeSearchOption
-  })
+const queryApi = (commit, state) => {
+  commit(mutations.REQUEST_SEARCH_RESULTS)
   if(state.query.length <= 0) {
-    commit('receiveSearchResults', {results: []})
-    commit('decrementPage')
+    commit(mutations.RECEIVE_SEARCH_RESULTS, {results: []})
     return
   }
-  return fetchTypeByName(state.query, state.activeSearchOption, (state.page - 1) * 10)
+  return fetchByType(state.query, state.activeSearchType, (state.page - 1) * state.limit)
     .then(res => {
       let results
-      switch (state.activeSearchOption) {
+      switch (state.activeSearchType) {
         case 'Artist':
           results = res.artists.items
           break
@@ -32,20 +24,28 @@ export const searchByName = ({commit, state}, {query, searchOption} = {}) => {
           results = []
           break;
       }
-      commit('receiveSearchResults', {results})
+      commit(mutations.RECEIVE_SEARCH_RESULTS, {results})
     })
 }
 
-export const changeActiveSearchOption = ({commit, dispatch, state}, {searchOption}) => {
-  dispatch('searchByName', {searchOption})
+export const CHANGE_QUERY_TEXT = ({commit, state}, {query}) => {
+  commit(mutations.SET_QUERY, {query})
+  commit(mutations.RESET_PAGE_COUNT)
+  queryApi(commit, state)
 }
 
-export const nextPage = ({commit, dispatch, state}) => {
-  commit('incrementPage')
-  dispatch('searchByName')
+export const CHANGE_ACTIVE_SEARCH_TYPE = ({commit, state}, {searchType}) => {
+  commit(mutations.SET_ACTIVE_SEARCH_TYPE, {searchType})
+  commit(mutations.RESET_PAGE_COUNT)
+  queryApi(commit, state)
 }
 
-export const previousPage = ({commit, dispatch, state}) => {
-  commit('decrementPage')
-  dispatch('searchByName')
+export const NEXT_PAGE = ({commit, state}) => {
+  commit(mutations.INCREMENT_PAGE)
+  queryApi(commit, state)
+}
+
+export const PREVIOUS_PAGE = ({commit, state}) => {
+  commit(mutations.DECREMENT_PAGE)
+  queryApi(commit, state)
 }

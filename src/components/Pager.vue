@@ -1,29 +1,33 @@
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
+import actions from '../store/actionTypes'
+
 export default {
   name: 'pager',
-  computed: mapGetters({
-    page: 'page',
-    numberOfResults: 'numberOfResults'
-  }),
+  computed: {
+    ...mapState([
+      'page'
+    ]),
+    ...mapGetters([
+      'disableNextPage',
+      'disablePreviousPage'
+    ])
+  },
   methods: {
-    incrementPage () {
-      this.$store.dispatch('nextPage')
-    },
-    decrementPage () {
-      this.$store.dispatch('previousPage')
-    }
+    ...mapActions([
+      actions.NEXT_PAGE,
+      actions.PREVIOUS_PAGE
+    ])
   },
   render (h) {
-    console.log(this.numberOfResults)
     return (
       <div class='pager'>
         <div class='btn-group right-spacing'>
-          <button on-click={this.decrementPage} disabled={this.page === 1} class='right-spacing'>
+          <button on-click={this.PREVIOUS_PAGE} disabled={this.disablePreviousPage} class='right-spacing'>
             <i class='fa fa-chevron-left' />
           </button>
           <span class='right-spacing'>{this.page}</span>
-          <button on-click={this.incrementPage} disabled={this.numberOfResults < 10}>
+          <button on-click={this.NEXT_PAGE} disabled={this.disableNextPage}>
             <i class='fa fa-chevron-right' />
           </button>
         </div>

@@ -1,11 +1,12 @@
 <template lang='pug'>
   div.search-box
-    input(type='text' v-model='name' tabindex=1)
-    search-button.right-spacing(v-bind:options='options' v-bind:search='search')
+    input(type='text' v-model='query' tabindex=1)
+    search-button.right-spacing(v-bind:searchTypes='searchTypes' v-bind:search='search')
 </template>
 
 <script>
 import SearchButton from './SearchButton.vue'
+import actions from '../store/actionTypes'
 
 export default {
   name: 'search-box',
@@ -14,8 +15,8 @@ export default {
   },
   data () {
     return {
-      name: '',
-      options: [
+      query: '',
+      searchTypes: [
         'Artist',
         'Album',
         'Track'
@@ -24,7 +25,7 @@ export default {
   },
   methods: {
     search () {
-      this.$store.dispatch('searchByName', {query: this.name})
+      this.$store.dispatch(actions.CHANGE_QUERY_TEXT, {query: this.query})
     }
   }
 }

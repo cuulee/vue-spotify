@@ -1,34 +1,36 @@
-export const requestSearchResults = (state, {query, searchOption}) => {
-  state.displaySearchOptions = false
-  state.isBusy = true
-  state.page = state.query !== query ||
-    state.activeSearchOption !== searchOption ? 1 : state.page
-  state.query = query
-  state.results = []
-  state.activeSearchOption = searchOption
-}
+export default {
+  REQUEST_SEARCH_RESULTS: (state) => {
+    state.displaySearchTypes = false
+    state.isBusy = true
+    state.results = []
+  },
 
-export const receiveSearchResults = (state, {results}) => {
-  state.results = results
-  state.isBusy = false
-}
+  RECEIVE_SEARCH_RESULTS: (state, {results}) => {
+    state.results = results
+    state.isBusy = false
+  },
 
-export const setDisplaySearchOptions = (state, {displaySearchOptions}) => {
-  state.displaySearchOptions = displaySearchOptions
-}
+  SET_QUERY: (state, {query}) => {
+    state.query = query
+  },
 
-export const setActiveSearchOption = (state, {option}) => {
-  state.activeSearchOption = option
-}
+  SET_ACTIVE_SEARCH_TYPE: (state, {searchType}) => {
+    state.activeSearchType = searchType
+  },
 
-export const incrementPage = (state) => {
-  state.page = ++state.page
-}
+  TOGGLE_DISPLAY_SEARCH_TYPES: (state) => {
+    state.displaySearchTypes = !state.displaySearchTypes
+  },
 
-export const decrementPage = (state) => {
-  state.page = state.page > 1 ? --state.page : state.page
-}
+  INCREMENT_PAGE: (state) => {
+    state.page += 1
+  },
 
-export const resetPageCounter = (state) => {
-  state.page = 1;
+  DECREMENT_PAGE: (state) => {
+    state.page = state.page > 1 ? state.page - 1 : state.page
+  },
+  
+  RESET_PAGE_COUNT: (state) => {
+    state.page = 1;
+  }
 }

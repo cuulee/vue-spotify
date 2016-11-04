@@ -2,15 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import * as actions from './actions'
-import * as getters from './getters'
-import * as mutations from './mutations'
+import getters from './getters'
+import mutations from './mutations'
 
 Vue.use(Vuex)
 
 const state = {
-  activeSearchOption: 'Artist',
-  displaySearchOptions: false,
+  activeSearchType: 'Artist',
+  displaySearchTypes: false,
   isBusy: false,
+  limit: 10,
   page: 1,
   query: '',
   results: []

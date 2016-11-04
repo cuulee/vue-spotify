@@ -1,24 +1,25 @@
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapMutations, mapState} from 'vuex'
+import mutations from '../store/mutationTypes'
+import actions from '../store/actionTypes'
+
 export default {
   name: 'search-button',
   props: [
-    'options',
+    'searchTypes',
     'search'
   ],
-  computed: mapGetters({
-    displaySearchOptions: 'displaySearchOptions',
-    activeSearchOption: 'activeSearchOption'
-  }),
+  computed: mapState([
+    'activeSearchType',
+    'displaySearchTypes'
+  ]),
   methods: {
-    toggleSearchOptions () {
-      this.$store.commit('setDisplaySearchOptions', {
-        displaySearchOptions: !this.displaySearchOptions
-      })
-    },
-    setActiveSearchOption (searchOption) {
-      this.$store.dispatch('changeActiveSearchOption', {searchOption})
-    }
+    ...mapActions([
+      actions.CHANGE_ACTIVE_SEARCH_TYPE
+    ]),
+    ...mapMutations([
+      mutations.TOGGLE_DISPLAY_SEARCH_TYPES
+    ])
   },
   render (h) {
     return (
@@ -26,17 +27,17 @@ export default {
         <button on-click={this.search}>
           <i class='fa fa-search' />
         </button>
-        <button class='dropdown-toggle' on-click={this.toggleSearchOptions}>
+        <button class='dropdown-toggle' on-click={this.TOGGLE_DISPLAY_SEARCH_TYPES}>
           <i class='fa fa-caret-down' />
         </button>
-        { this.displaySearchOptions ?
+        { this.displaySearchTypes ?
           <ul>
-            { this.options.map((item) => {
+            { this.searchTypes.map((searchType) => {
                 return (
                   <li>
-                    <a class={this.activeSearchOption === item ? 'active' : null}
-                      on-click={this.setActiveSearchOption.bind(this, item)}>
-                      {item}
+                    <a class={this.activeSearchType === searchType ? 'active' : null}
+                      on-click={this.CHANGE_ACTIVE_SEARCH_TYPE.bind(this, {searchType})}>
+                      {searchType}
                     </a>
                   </li>
                 )
